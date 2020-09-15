@@ -1,0 +1,59 @@
+<div fxFlex="auto" fxLayout="row" fxLayoutAlign="center center">
+
+    <div fxFlex.gt-md="80" fxFlex.gt-xs="100" fxLayout="column" fxLayoutAlign="center stretch">
+
+        <div fxLayout="row" fxLayoutAlign="center">
+            <div class="container-form" fxLayout="column">
+                <h2>Agregar nuevo contacto</h2>
+                <form fxLayout="row" fxLayoutAlign="space-evenly">
+            
+                    <mat-form-field appearance="fill" class="example-form-field">
+                        <mat-label>Nombre y apellido</mat-label>
+                        <input color="primary" matInput type="text" #title>
+                        <mat-icon matSuffix>create</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="example-form-field">
+                        <mat-label>Profesión</mat-label>
+                        <input matInput type="text" #profesion>
+                        <mat-icon matSuffix>create</mat-icon>
+                    </mat-form-field>
+            
+                    <mat-form-field appearance="fill">
+                        <mat-label>Genero</mat-label>
+                        <mat-select #genero>
+                            <mat-option value="" selected>Seleccione</mat-option>
+                            <mat-option value="1">Hombre</mat-option>
+                            <mat-option value="2">Mujer</mat-option>
+                            <mat-option value="3">Otro</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+            
+                    <button mat-raised-button color="primary" (click)="agregarContactoHandle(title.value, profesion.value, genero.value)">Agregar contacto</button>
+            
+                </form>
+            </div>
+        </div>
+
+        <div fxFlex="auto" fxLayout="row wrap" fxLayoutAlign="space-evenly stretch">
+
+            <app-template-contacto 
+
+                fxFlex="auto" 
+                    fxLayout="row"
+                fxFlex.gt-md="24" 
+                fxFlex.gt-sm="48" 
+                fxFlex.gt-xs="98"
+
+                *ngFor="let contacto of contactos; let i = index" 
+                [contacto]="contacto" 
+                [index]="i"
+                (borrarContacto)="borrarContactoHandle($event)"
+                
+            ></app-template-contacto>
+
+        </div>
+
+    </div>
+
+</div>
