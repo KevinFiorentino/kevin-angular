@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
-import { Contacto } from 'src/app/clases/Contacto';
+import { Contacto } from 'src/app/models/Contacto';
 
 @Component({
     selector: 'app-template-contacto',

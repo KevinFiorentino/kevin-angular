@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Contacto } from 'src/app/clases/Contacto';
+import { Contacto } from 'src/app/models/Contacto';
 
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators, Form, NgForm } from '@angular/forms'
 
 @Component({
     selector: 'app-contactos',
@@ -17,7 +17,8 @@ export class ContactosComponent implements OnInit {
         genero: ''
     };
 
-    f: FormGroup;
+    //El formulario está siendo validado en el HTML, no en este Controlador
+    //Es del tipo Template Drive, no Reactive Form
 
     constructor() {
         this.contactos = new Array();
@@ -25,7 +26,7 @@ export class ContactosComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    agregarContactoHandle(formContacto) {
+    agregarContactoHandle(formContacto: NgForm) {
         let contacto = new Contacto(this.formulario.nombre, this.formulario.profesion, this.formulario.genero);
         this.contactos.push(contacto);
 
@@ -34,7 +35,7 @@ export class ContactosComponent implements OnInit {
             profesion: '',
             genero: ''
         };
-        formContacto.fomr.reset();
+        formContacto.form.reset();
     }
 
     borrarContactoHandle(idContacto: number) {
