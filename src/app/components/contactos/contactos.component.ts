@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Contacto } from 'src/app/clases/Contacto';
 
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+
 @Component({
     selector: 'app-contactos',
     templateUrl: './contactos.component.html',
@@ -9,6 +11,13 @@ import { Contacto } from 'src/app/clases/Contacto';
 export class ContactosComponent implements OnInit {
 
     contactos: Contacto[];
+    formulario = {
+        nombre: '',
+        profesion: '',
+        genero: ''
+    };
+
+    f: FormGroup;
 
     constructor() {
         this.contactos = new Array();
@@ -16,9 +25,16 @@ export class ContactosComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    agregarContactoHandle(title: string, descripción: string, genero: string) {
-        let contacto = new Contacto(title, descripción, genero);
+    agregarContactoHandle(formContacto) {
+        let contacto = new Contacto(this.formulario.nombre, this.formulario.profesion, this.formulario.genero);
         this.contactos.push(contacto);
+
+        this.formulario = {
+            nombre: '',
+            profesion: '',
+            genero: ''
+        };
+        formContacto.fomr.reset();
     }
 
     borrarContactoHandle(idContacto: number) {
