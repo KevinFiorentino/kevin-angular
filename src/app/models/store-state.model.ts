@@ -21,6 +21,7 @@ export const initStoreState = function() {
 
 export enum StoreStatusTypes {
     NUEVO_CONTACTO = '[Contacto] Nuevo',
+    ELIMINAR_CONTACTO = '[Contacto] Eliminar',
     ELEGIDO_FAVORITO = '[Contacto] Favorito'
 }
 
@@ -31,22 +32,35 @@ export class NuevoContactoAction implements Action {
     constructor(public contacto: Contacto) {}
 }
 
+export class EliminarContactoAction implements Action {
+    type = StoreStatusTypes.ELIMINAR_CONTACTO;
+    constructor() {}
+}
+
 export class NuevoFavoritoAction implements Action {
     type = StoreStatusTypes.ELEGIDO_FAVORITO;
     constructor(public contacto: Contacto) {}
 }
 
-export type ContactoActions = NuevoContactoAction | NuevoFavoritoAction;
+export type ContactoActions = NuevoContactoAction | EliminarContactoAction | NuevoFavoritoAction;
 
 
 // REDUCERS
 export function reducerContacto(state: StoreState, action: ContactoActions): StoreState {
+
+    let kev = new Contacto("kev", "prog", "asd");
 
     switch(action.type) {
         case StoreStatusTypes.NUEVO_CONTACTO: {
             return {
                 ...state,
                 contactos: [ ...state.contactos, (action as NuevoContactoAction).contacto ]
+            };
+        }
+        case StoreStatusTypes.ELIMINAR_CONTACTO: {
+            return {
+                //FALTA BORRAR CONTACTO DEL ESTADO
+                ...state,
             };
         }
         case StoreStatusTypes.ELEGIDO_FAVORITO: {

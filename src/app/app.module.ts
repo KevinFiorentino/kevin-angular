@@ -32,6 +32,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { StoreModule as NgRxStoreModule, ActionReducerMap } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreState, reducerContacto, initStoreState, ContactoEffects } from './models/store-state.model';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 export interface AppState {
 	contactos: StoreState
@@ -66,6 +68,10 @@ const reducersInitialState = {
 		// Redux
 		NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState }),
 		EffectsModule.forRoot([ContactoEffects]),
+		StoreDevtoolsModule.instrument({
+			maxAge: 25,
+			logOnly: environment.production
+		}),
 
 		// Angular Material
 		MatFormFieldModule,

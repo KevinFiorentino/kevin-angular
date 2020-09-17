@@ -4,7 +4,7 @@ import { Contacto } from 'src/app/models/contacto.model';
 import { NgForm } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import { AppState } from 'src/app/app.module';
-import { NuevoContactoAction } from '../../models/store-state.model';
+import { NuevoContactoAction, EliminarContactoAction } from '../../models/store-state.model';
 
 
 @Component({
@@ -51,6 +51,8 @@ export class ContactosComponent implements OnInit {
 
     borrarContactoHandle(idContacto: number) {
         this.contactos.splice(idContacto, 1);
+
+        this.store.dispatch(new EliminarContactoAction());
     }
 
 }
