@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
-import { Contacto } from 'src/app/models/Contacto';
+import { Contacto } from 'src/app/models/contacto.model';
 
 @Component({
     selector: 'app-template-contacto',
@@ -15,7 +15,7 @@ export class TemplateContactoComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit(): void { console.log("init") }
+    ngOnInit(): void {}
 
     sendBorrarContacto(idContacto: string): void {
         console.log(idContacto);
