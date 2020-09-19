@@ -7,15 +7,23 @@ import { Contacto } from './contacto.model';
 
 
 // ESTADO
-export interface StoreState {
+export interface StoreStateContacto {
     contactos: Contacto[];
-    //favoritos: Contacto;
+}
+export interface StoreStateFavorito {
+    favoritos: Contacto[];
+    notificacion: number
 }
 
-export const initStoreState = function() {
+export const initStoreStateContacto = function() {
     return {
-        contactos: [],
-        favorito: null
+        contactos: []
+    }
+}
+export const initStoreStateFavorito = function() {
+    return {
+        favoritos: [],
+        notificacion: 0
     }
 }
 
@@ -34,7 +42,7 @@ export class NuevoContactoAction implements Action {
 
 export class EliminarContactoAction implements Action {
     type = StoreStatusTypes.ELIMINAR_CONTACTO;
-    constructor() {}
+    constructor(public contacto: Contacto) {}
 }
 
 export class NuevoFavoritoAction implements Action {
@@ -46,48 +54,65 @@ export type ContactoActions = NuevoContactoAction | EliminarContactoAction | Nue
 
 
 // REDUCERS
-export function reducerContacto(state: StoreState, action: ContactoActions): StoreState {
-
-    let kev = new Contacto("kev", "prog", "asd");
-
+export function reducerContacto(state: StoreStateContacto, action: ContactoActions): StoreStateContacto {
     switch(action.type) {
         case StoreStatusTypes.NUEVO_CONTACTO: {
             return {
                 ...state,
-                contactos: [ ...state.contactos, (action as NuevoContactoAction).contacto ]
+                contactos: [ 
+                    ...state.contactos, 
+                    (action as NuevoContactoAction).contacto 
+                ]
             };
         }
         case StoreStatusTypes.ELIMINAR_CONTACTO: {
             return {
-                //FALTA BORRAR CONTACTO DEL ESTADO
                 ...state,
+                contactos: [ 
+                    //...state.contactos.splice(0, 1),
+                    //state.contactos.filter(contacto => contacto.nombre !== (action as EliminarContactoAction).contacto)
+                ]
             };
         }
+        default : {
+            return state;
+        }
+    }
+}
+
+export function reducerFavorito(state: StoreStateFavorito, action: ContactoActions): StoreStateFavorito {
+    switch(action.type) {
         case StoreStatusTypes.ELEGIDO_FAVORITO: {
             //state.contactos.forEach(x => x.setSelected(false));
             //const fav: Contacto = (action as NuevoFavoritoAction).contacto;
             //fav.setSelected(true);
             return {
-                ...state, //favoritos: fav
+                ...state,
+                favoritos: [ 
+                    ...state.favoritos, 
+                    (action as NuevoFavoritoAction).contacto 
+                ]
             }
         }
         default : {
             return state;
         }
     }
-
-    //return state;
 }
 
 
 // EFFECTS
 @Injectable()
 export class ContactoEffects {
+    /*
     @Effect()
     nuevoAgregado$: Observable<Action> = this.actions$.pipe(
         ofType(StoreStatusTypes.ELEGIDO_FAVORITO),
         map((action: NuevoContactoAction) => new NuevoFavoritoAction(action.contacto))
     );
 
-    constructor(private actions$: Actions) {}
+    constructor(private actions$: Actions) {
+        console.log("EFFECT");
+    }
+    */
 }

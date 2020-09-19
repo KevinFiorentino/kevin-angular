@@ -1,0 +1,27 @@
+<div fxFlex="auto" fxLayout="row" fxLayoutAlign="center center">
+
+    <div class="container-favoritos" fxFlex.gt-md="80" fxFlex.gt-xs="100" fxLayout="column" fxLayoutAlign="center stretch">
+
+        <h2>Mis contactos favoritos</h2>
+
+        <div fxFlex="auto" fxLayout="row wrap" fxLayoutAlign="space-evenly stretch">
+
+            <app-template-contacto 
+
+                fxFlex="auto" 
+                fxLayout="row"
+                fxFlex.gt-md="24" 
+                fxFlex.gt-sm="48" 
+                fxFlex.gt-xs="98"
+
+                *ngFor="let contacto of favoritos; let i = index" 
+                [contacto]="contacto" 
+                [index]="i"
+                
+            ></app-template-contacto>
+
+        </div>
+
+    </div>
+
+</div>

@@ -26,33 +26,38 @@ export class ContactosComponent implements OnInit {
 
     constructor(private store: Store<AppState>) {
         this.contactos = new Array();
+    }
+
+    ngOnInit(): void {
 
         this.store.select(state => state.contactos)
             .subscribe(data => {
-                console.log("Nuevo Contacto: ", data)
+                this.contactos = data.contactos;
             })
     }
 
-    ngOnInit(): void {}
+    agregarContactoHandle(formContacto: NgForm): void {
 
-    agregarContactoHandle(formContacto: NgForm) {
         let contacto = new Contacto(this.formulario.nombre, this.formulario.profesion, this.formulario.genero);
-        this.contactos.push(contacto);
 
+        this.store.dispatch(new NuevoContactoAction(contacto));
+
+        // El suscribe se encarga de setear el array de contactos.
+        // this.contactos.push(contacto);
+
+        // Reiniciamos formulario de la view
         this.formulario = {
             nombre: '',
             profesion: '',
             genero: ''
         };
-        formContacto.form.reset();
-
-        this.store.dispatch(new NuevoContactoAction(contacto));
+        formContacto.form.reset(); 
     }
 
-    borrarContactoHandle(idContacto: number) {
-        this.contactos.splice(idContacto, 1);
+    borrarContactoHandle(contacto: Contacto): void {
+        //this.contactos.splice(idContacto, 1);
 
-        this.store.dispatch(new EliminarContactoAction());
+        this.store.dispatch(new EliminarContactoAction(contacto));
     }
 
 }

@@ -1,6 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { Contacto } from 'src/app/models/contacto.model';
 
+import { Store } from '@ngrx/store'
+import { AppState } from 'src/app/app.module';
+import { NuevoFavoritoAction } from '../../models/store-state.model';
+
 @Component({
     selector: 'app-template-contacto',
     templateUrl: './template-contacto.component.html',
@@ -10,16 +14,21 @@ export class TemplateContactoComponent implements OnInit {
 
     @Input() index: string;
     @Input() contacto: Contacto;
-    @Output() borrarContacto = new EventEmitter<string>();
-    @HostBinding('attr.class') addClass = "col s12 m6 l4 xl3";
+    @Output() borrarContacto = new EventEmitter<Contacto>();
+    //@HostBinding('attr.class') addClass = "col s12 m6 l4 xl3";
 
-    constructor() { }
+    constructor(private store: Store<AppState>) { }
 
     ngOnInit(): void {}
 
-    sendBorrarContacto(idContacto: string): void {
-        console.log(idContacto);
-        this.borrarContacto.emit(idContacto)
+    sendBorrarContacto(): void {
+        this.borrarContacto.emit(this.contacto)
+    }
+
+    agregarFavoritoHandle(): void {
+        console.log("Nuevo FAVORITO");
+
+        this.store.dispatch(new NuevoFavoritoAction(this.contacto));
     }
 
 }

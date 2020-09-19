@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,22 +32,24 @@ import { MatDialogModule } from '@angular/material/dialog';
 // REDUX
 import { StoreModule as NgRxStoreModule, ActionReducerMap } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreState, reducerContacto, initStoreState, ContactoEffects } from './models/store-state.model';
+import { StoreStateContacto, StoreStateFavorito, reducerContacto, reducerFavorito, initStoreStateContacto, initStoreStateFavorito, ContactoEffects } from './models/store-state.model';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from 'src/environments/environment';
+
 
 export interface AppState {
-	contactos: StoreState
+	contactos: StoreStateContacto,
+	favoritos: StoreStateFavorito
 };
 
 const reducers: ActionReducerMap<AppState> = {
-	contactos: reducerContacto
+	contactos: reducerContacto,
+	favoritos: reducerFavorito
 };
 
 const reducersInitialState = {
-	contactos: initStoreState()
+	contactos: initStoreStateContacto(),
+	favoritos: initStoreStateFavorito()
 };
-
 
 
 @NgModule({
@@ -65,9 +68,11 @@ const reducersInitialState = {
 		BrowserAnimationsModule,
 		FlexLayoutModule,
 
-		// Redux
-		NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState }),
-		EffectsModule.forRoot([ContactoEffects]),
+		// REDUX
+		NgRxStoreModule.forRoot(reducers, { 
+			initialState: reducersInitialState 
+		}),
+		EffectsModule.forRoot([ ContactoEffects ]),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production
