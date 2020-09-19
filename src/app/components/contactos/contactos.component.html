@@ -79,9 +79,11 @@
                 *ngFor="let contacto of contactos; let i = index" 
                 [contacto]="contacto" 
                 [index]="i"
-                (borrarContacto)="borrarContactoHandle($event)"
+                
                 
             ></app-template-contacto>
+
+            <!-- (borrarContacto)="borrarContactoHandle($event)" -->
 
         </div>
 

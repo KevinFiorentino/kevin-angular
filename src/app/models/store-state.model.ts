@@ -30,13 +30,15 @@ export const initStoreStateFavorito = function() {
 export enum StoreStatusTypes {
     NUEVO_CONTACTO = '[Contacto] Nuevo',
     ELIMINAR_CONTACTO = '[Contacto] Eliminar',
+    VOTE_UP = '[Contacto] Vote Up',
+    VOTE_DOWN = '[Contacto] Vote Down',
     ELEGIDO_FAVORITO = '[Favorito] Nuevo',
     NOTIFICAR_FAVORITOS = '[Favorito] Notificación',
-    REINICIAR_NOTIFICAR_FAVORITOS = '[Favorito] Reiniciar norificacion'
+    REINICIAR_NOTIFICAR_FAVORITOS = '[Favorito] Reiniciar Notificacion',
 }
 
 
-// ACCIONES
+// ACCIONES CONTACTO
 export class NuevoContactoAction implements Action {
     type = StoreStatusTypes.NUEVO_CONTACTO;
     constructor(public contacto: Contacto) {}
@@ -45,7 +47,16 @@ export class EliminarContactoAction implements Action {
     type = StoreStatusTypes.ELIMINAR_CONTACTO;
     constructor(public contacto: Contacto) {}
 }
+export class VoteUpAction implements Action {
+    type = StoreStatusTypes.VOTE_UP;
+    constructor(public contacto: Contacto) {}
+}
+export class VoteDownAction implements Action {
+    type = StoreStatusTypes.VOTE_DOWN;
+    constructor(public contacto: Contacto) {}
+}
 
+// ACCIONES FAVORITOS
 export class NuevoFavoritoAction implements Action {
     type = StoreStatusTypes.ELEGIDO_FAVORITO;
     constructor(public contacto: Contacto) {}
@@ -59,7 +70,9 @@ export class ReiniciarNotificacionFavoritoAction implements Action {
     constructor() {}
 }
 
-export type ContactoActions = NuevoContactoAction | EliminarContactoAction | NuevoFavoritoAction | NotificarFavoritoAction | ReiniciarNotificacionFavoritoAction;
+export type ContactoActions = 
+    NuevoContactoAction | EliminarContactoAction | VoteUpAction | VoteDownAction |
+    NuevoFavoritoAction | NotificarFavoritoAction | ReiniciarNotificacionFavoritoAction;
 
 
 // REDUCERS
@@ -83,6 +96,16 @@ export function reducerContacto(state: StoreStateContacto, action: ContactoActio
                 ]
             };
         }
+        case StoreStatusTypes.VOTE_UP: {
+            const contacto: Contacto = (action as VoteUpAction).contacto;
+            contacto.voteUp();
+            return { ...state };
+        }
+        case StoreStatusTypes.VOTE_DOWN: {
+            const contacto: Contacto = (action as VoteDownAction).contacto;
+            contacto.voteDown();
+            return { ...state };
+        }
         default: {
             return state;
         }
@@ -92,9 +115,6 @@ export function reducerContacto(state: StoreStateContacto, action: ContactoActio
 export function reducerFavorito(state: StoreStateFavorito, action: ContactoActions): StoreStateFavorito {
     switch(action.type) {
         case StoreStatusTypes.ELEGIDO_FAVORITO: {
-            //state.contactos.forEach(x => x.setSelected(false));
-            //const fav: Contacto = (action as NuevoFavoritoAction).contacto;
-            //fav.setSelected(true);
             return {
                 ...state,
                 favoritos: [ 

@@ -9,13 +9,12 @@
     <img *ngIf="contacto.genero == '1'" mat-card-image src="https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png" alt="Foto del contacto">
     <img *ngIf="contacto.genero == '2'" mat-card-image src="https://www.iconfinder.com/data/icons/business-avatar-1/512/4_avatar-512.png" alt="Foto del contacto">
     <img *ngIf="contacto.genero == '3'" mat-card-image src="https://cdn3.iconfinder.com/data/icons/fantasy-and-role-play-game-adventure-quest/512/Grim_Reaper-512.png" alt="Foto del contacto">
-    <mat-card-content>
-        <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo ducimus dolore itaque ipsa.
-        </p>
-    </mat-card-content>
     <mat-card-actions>
+        <!--
         <button mat-raised-button color="primary" (click)="sendBorrarFavorito()">Borrar favorito</button>
-        <button mat-raised-button color="secundary">Like</button>
+        <button mat-raised-button color="secundary" (click)="sendContactoVoteUp()">Vote Up</button>
+        <button mat-raised-button color="secundary" (click)="sendContactoVoteDown()">Vote Down</button>
+        <span>{{ contacto.votes }}</span>
+        -->
     </mat-card-actions>
 </mat-card>

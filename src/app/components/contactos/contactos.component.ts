@@ -39,7 +39,7 @@ export class ContactosComponent implements OnInit {
     agregarContactoHandle(formContacto: NgForm): void {
 
         let contacto = new Contacto(this.formulario.nombre, this.formulario.profesion, this.formulario.genero);
-
+        
         this.store.dispatch(new NuevoContactoAction(contacto));
 
         // El suscribe se encarga de setear el array de contactos.
