@@ -1,7 +1,11 @@
 <p>
 	<mat-toolbar class="kevin-navbar" color="primary">
 		<a class="left" routerLink="/contactos" routerLinkActive="active"><span>Contactos</span></a>
-		<a class="left" routerLink="/favoritos" routerLinkActive="active"><span>Favoritos</span></a>
+		<a class="left" routerLink="/favoritos" routerLinkActive="active">
+			<span matBadge="{{ notificar_favoritos }}" (click)="ocultarBadgeFavoritos()" [matBadgeHidden]="hiddenBadgeFavoritos" matBadgeOverlap="false" matBadgeColor="accent">
+				Favoritos
+			</span>
+		</a>
 		<span class="spacer"></span>
 		<span>KevinAngularMaterial</span>
 	</mat-toolbar>

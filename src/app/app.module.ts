@@ -27,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 // REDUX
@@ -34,6 +35,7 @@ import { StoreModule as NgRxStoreModule, ActionReducerMap } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreStateContacto, StoreStateFavorito, reducerContacto, reducerFavorito, initStoreStateContacto, initStoreStateFavorito, ContactoEffects } from './models/store-state.model';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TemplateFavoritoComponent } from './components/template-favorito/template-favorito.component';
 
 
 export interface AppState {
@@ -58,7 +60,8 @@ const reducersInitialState = {
 		ContactosComponent,
 		TemplateContactoComponent,
 		NavbarComponent,
-		FavoritosComponent
+		FavoritosComponent,
+		TemplateFavoritoComponent
 	],
 	imports: [
 		BrowserModule,
@@ -86,7 +89,8 @@ const reducersInitialState = {
 		MatIconModule,
 		MatCardModule,
 		MatToolbarModule,
-		MatDialogModule
+		MatDialogModule,
+		MatBadgeModule
 	],
 	exports: [ RouterModule ],
 	providers: [],

@@ -3,7 +3,7 @@ import { Contacto } from 'src/app/models/contacto.model';
 
 import { Store } from '@ngrx/store'
 import { AppState } from 'src/app/app.module';
-import { NuevoFavoritoAction } from '../../models/store-state.model';
+import { NuevoFavoritoAction, NotificarFavoritoAction } from '../../models/store-state.model';
 
 @Component({
     selector: 'app-template-contacto',
@@ -29,6 +29,7 @@ export class TemplateContactoComponent implements OnInit {
         console.log("Nuevo FAVORITO");
 
         this.store.dispatch(new NuevoFavoritoAction(this.contacto));
+        this.store.dispatch(new NotificarFavoritoAction());
     }
 
 }

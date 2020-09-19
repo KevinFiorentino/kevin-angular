@@ -30,7 +30,9 @@ export const initStoreStateFavorito = function() {
 export enum StoreStatusTypes {
     NUEVO_CONTACTO = '[Contacto] Nuevo',
     ELIMINAR_CONTACTO = '[Contacto] Eliminar',
-    ELEGIDO_FAVORITO = '[Contacto] Favorito'
+    ELEGIDO_FAVORITO = '[Favorito] Nuevo',
+    NOTIFICAR_FAVORITOS = '[Favorito] Notificación',
+    REINICIAR_NOTIFICAR_FAVORITOS = '[Favorito] Reiniciar norificacion'
 }
 
 
@@ -39,7 +41,6 @@ export class NuevoContactoAction implements Action {
     type = StoreStatusTypes.NUEVO_CONTACTO;
     constructor(public contacto: Contacto) {}
 }
-
 export class EliminarContactoAction implements Action {
     type = StoreStatusTypes.ELIMINAR_CONTACTO;
     constructor(public contacto: Contacto) {}
@@ -49,8 +50,16 @@ export class NuevoFavoritoAction implements Action {
     type = StoreStatusTypes.ELEGIDO_FAVORITO;
     constructor(public contacto: Contacto) {}
 }
+export class NotificarFavoritoAction implements Action {
+    type = StoreStatusTypes.NOTIFICAR_FAVORITOS;
+    constructor() {}
+}
+export class ReiniciarNotificacionFavoritoAction implements Action {
+    type = StoreStatusTypes.REINICIAR_NOTIFICAR_FAVORITOS;
+    constructor() {}
+}
 
-export type ContactoActions = NuevoContactoAction | EliminarContactoAction | NuevoFavoritoAction;
+export type ContactoActions = NuevoContactoAction | EliminarContactoAction | NuevoFavoritoAction | NotificarFavoritoAction | ReiniciarNotificacionFavoritoAction;
 
 
 // REDUCERS
@@ -74,7 +83,7 @@ export function reducerContacto(state: StoreStateContacto, action: ContactoActio
                 ]
             };
         }
-        default : {
+        default: {
             return state;
         }
     }
@@ -94,7 +103,19 @@ export function reducerFavorito(state: StoreStateFavorito, action: ContactoActio
                 ]
             }
         }
-        default : {
+        case StoreStatusTypes.NOTIFICAR_FAVORITOS: {
+            return {
+                ...state,
+                notificacion: state.notificacion + 1
+            }
+        }
+        case StoreStatusTypes.REINICIAR_NOTIFICAR_FAVORITOS: {
+            return {
+                ...state,
+                notificacion: 0
+            }
+        }
+        default: {
             return state;
         }
     }
