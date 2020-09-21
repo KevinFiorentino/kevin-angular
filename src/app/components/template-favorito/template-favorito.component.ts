@@ -3,7 +3,7 @@ import { Contacto } from 'src/app/models/contacto.model';
 
 import { Store } from '@ngrx/store'
 import { AppState } from 'src/app/app.module';
-import { VoteUpAction, VoteDownAction } from '../../models/store-state.model';
+import { EliminarFavoritoAction, VoteUpAction, VoteDownAction } from '../../models/store-state.model';
 
 @Component({
 	selector: 'app-template-favorito',
@@ -21,7 +21,7 @@ export class TemplateFavoritoComponent implements OnInit {
 	ngOnInit(): void {}
 
 	sendBorrarFavorito(): void {
-		//BORRAR FAVORITO
+		this.store.dispatch(new EliminarFavoritoAction(this.contacto))
 	}
 
 	sendContactoVoteUp() {

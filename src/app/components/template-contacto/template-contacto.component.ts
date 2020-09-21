@@ -3,7 +3,7 @@ import { Contacto } from 'src/app/models/contacto.model';
 
 import { Store } from '@ngrx/store'
 import { AppState } from 'src/app/app.module';
-import { NuevoFavoritoAction, NotificarFavoritoAction, VoteUpAction, VoteDownAction } from '../../models/store-state.model';
+import { NuevoFavoritoAction, EliminarContactoAction, NotificarFavoritoAction, VoteUpAction, VoteDownAction } from '../../models/store-state.model';
 
 @Component({
     selector: 'app-template-contacto',
@@ -23,11 +23,10 @@ export class TemplateContactoComponent implements OnInit {
 
     sendBorrarContacto(): void {
         //this.borrarContacto.emit(this.contacto)
+        this.store.dispatch(new EliminarContactoAction(this.contacto))
     }
 
     agregarFavoritoHandle() {
-        console.log("Nuevo FAVORITO");
-
         this.store.dispatch(new NuevoFavoritoAction(this.contacto));
         this.store.dispatch(new NotificarFavoritoAction());
         return false;

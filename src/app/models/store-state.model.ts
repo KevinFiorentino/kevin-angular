@@ -33,6 +33,7 @@ export enum StoreStatusTypes {
     VOTE_UP = '[Contacto] Vote Up',
     VOTE_DOWN = '[Contacto] Vote Down',
     ELEGIDO_FAVORITO = '[Favorito] Nuevo',
+    ELIMINAR_FAVORITO = '[Favorito] Eliminar',
     NOTIFICAR_FAVORITOS = '[Favorito] Notificación',
     REINICIAR_NOTIFICAR_FAVORITOS = '[Favorito] Reiniciar Notificacion',
 }
@@ -61,6 +62,10 @@ export class NuevoFavoritoAction implements Action {
     type = StoreStatusTypes.ELEGIDO_FAVORITO;
     constructor(public contacto: Contacto) {}
 }
+export class EliminarFavoritoAction implements Action {
+    type = StoreStatusTypes.ELIMINAR_FAVORITO;
+    constructor(public contacto: Contacto) {}
+}
 export class NotificarFavoritoAction implements Action {
     type = StoreStatusTypes.NOTIFICAR_FAVORITOS;
     constructor() {}
@@ -72,7 +77,7 @@ export class ReiniciarNotificacionFavoritoAction implements Action {
 
 export type ContactoActions = 
     NuevoContactoAction | EliminarContactoAction | VoteUpAction | VoteDownAction |
-    NuevoFavoritoAction | NotificarFavoritoAction | ReiniciarNotificacionFavoritoAction;
+    NuevoFavoritoAction | EliminarFavoritoAction | NotificarFavoritoAction | ReiniciarNotificacionFavoritoAction;
 
 
 // REDUCERS
@@ -91,8 +96,7 @@ export function reducerContacto(state: StoreStateContacto, action: ContactoActio
             return {
                 ...state,
                 contactos: [ 
-                    //...state.contactos.splice(0, 1),
-                    //state.contactos.filter(contacto => contacto.nombre !== (action as EliminarContactoAction).contacto)
+                    ...state.contactos.filter(contacto => contacto.id !== (action as EliminarContactoAction).contacto.id)
                 ]
             };
         }
@@ -122,6 +126,14 @@ export function reducerFavorito(state: StoreStateFavorito, action: ContactoActio
                     (action as NuevoFavoritoAction).contacto 
                 ]
             }
+        }
+        case StoreStatusTypes.ELIMINAR_FAVORITO: {
+            return {
+                ...state,
+                favoritos: [ 
+                    ...state.favoritos.filter(contacto => contacto.id !== (action as EliminarFavoritoAction).contacto.id)
+                ]
+            };
         }
         case StoreStatusTypes.NOTIFICAR_FAVORITOS: {
             return {
