@@ -14,6 +14,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ContactosComponent } from './components/contactos/contactos.component';
 import { TemplateContactoComponent } from './components/template-contacto/template-contacto.component';
 import { FavoritosComponent } from './components/favoritos/favoritos.component';
+import { TemplateFavoritoComponent } from './components/template-favorito/template-favorito.component';
 
 // Angular Flex Layout
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -35,7 +36,7 @@ import { StoreModule as NgRxStoreModule, ActionReducerMap } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreStateContacto, StoreStateFavorito, reducerContacto, reducerFavorito, initStoreStateContacto, initStoreStateFavorito, ContactoEffects } from './models/store-state.model';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { TemplateFavoritoComponent } from './components/template-favorito/template-favorito.component';
+
 
 
 export interface AppState {
@@ -73,7 +74,11 @@ const reducersInitialState = {
 
 		// REDUX
 		NgRxStoreModule.forRoot(reducers, { 
-			initialState: reducersInitialState 
+			initialState: reducersInitialState ,
+			runtimeChecks: {
+				strictStateImmutability: false,
+				strictActionImmutability: false
+			}
 		}),
 		EffectsModule.forRoot([ ContactoEffects ]),
 		StoreDevtoolsModule.instrument({

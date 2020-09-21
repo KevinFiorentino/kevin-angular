@@ -1,15 +1,16 @@
+import { v4 as uuid } from "uuid";
+
 export class Contacto {
 
+    public id = uuid();
     public nombre: string;
     public profesion: string;
     public genero: string;
-    public votes: number;
 
-    constructor(nombre: string, profesion: string, genero: string, votes: number = 0) {
+    constructor(nombre: string, profesion: string, genero: string, public votes: number = 0) {
         this.nombre = nombre;
         this.profesion = profesion;
         this.genero = genero;
-        this.votes = votes;
     }
 
     public voteUp(): void {

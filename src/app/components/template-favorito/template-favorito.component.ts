@@ -24,6 +24,14 @@ export class TemplateFavoritoComponent implements OnInit {
 		//BORRAR FAVORITO
 	}
 
+	sendContactoVoteUp() {
+		this.store.dispatch(new VoteUpAction(this.contacto));
+		return false;
+	}
 
+	sendContactoVoteDown() {
+		this.store.dispatch(new VoteDownAction(this.contacto));
+		return false;
+	}
 
 }

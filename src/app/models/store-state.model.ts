@@ -97,12 +97,12 @@ export function reducerContacto(state: StoreStateContacto, action: ContactoActio
             };
         }
         case StoreStatusTypes.VOTE_UP: {
-            const contacto: Contacto = (action as VoteUpAction).contacto;
+            let contacto: Contacto = (action as VoteUpAction).contacto;
             contacto.voteUp();
             return { ...state };
         }
         case StoreStatusTypes.VOTE_DOWN: {
-            const contacto: Contacto = (action as VoteDownAction).contacto;
+            let contacto: Contacto = (action as VoteDownAction).contacto;
             contacto.voteDown();
             return { ...state };
         }
