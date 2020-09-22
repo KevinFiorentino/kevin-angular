@@ -15,11 +15,10 @@ export class AppConfigService {
 
 	load() {
 		return new Promise((resolve, reject) => {
-
 			this.ClienteMockApiHTTPService.getMockApiAll()
 				.subscribe(response => {
 					response.map(res => {
-						this.store.dispatch(new NuevoContactoAction(new Contacto(res.nombre, res.profesion, res.imagen)))
+						this.store.dispatch(new NuevoContactoAction(new Contacto(res.nombre, res.profesion, res.imagen, res.id)))
 					})
 				});
 			 

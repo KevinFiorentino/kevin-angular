@@ -1,13 +1,14 @@
 <mat-card>
     <mat-card-header>
         <div mat-card-avatar>
-            <img color="white" src="https://cdn0.iconfinder.com/data/icons/elasto-online-store/26/00-ELASTOFONT-STORE-READY_user-circle-32.png">
+            <mat-icon aria-hidden="false" aria-label="Icon people">perm_identity</mat-icon>
         </div>
         <mat-card-title>{{ contacto.nombre }}</mat-card-title>
         <mat-card-subtitle>{{ contacto.profesion }}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image [src]="contacto.imagen" alt="Foto de {{ contacto.nombre }}">
-    <span>Votos: {{ contacto.votes }}</span>
+    <mat-icon class="icon_thumbs" aria-hidden="false" aria-label="Icon thumbs">thumbs_up_down</mat-icon>
+    <span>{{ contacto.votes }}</span>
     <mat-card-actions>
         <button mat-raised-button color="primary" (click)="sendBorrarContacto()">Borrar contacto</button>
         <button mat-raised-button color="secundary" (click)="agregarFavoritoHandle()">Agregar a favoritos</button>

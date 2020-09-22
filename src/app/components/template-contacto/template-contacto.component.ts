@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store'
 import { AppState } from 'src/app/app.module';
 import { NuevoFavoritoAction, EliminarContactoAction, NotificarFavoritoAction, VoteUpAction, VoteDownAction } from '../../models/store-state.model';
 
+import { ClienteMockApiHTTPService } from "../../services/cliente-mock-api/cliente-mock-api-http.service"
+
 @Component({
     selector: 'app-template-contacto',
     templateUrl: './template-contacto.component.html',
@@ -17,13 +19,19 @@ export class TemplateContactoComponent implements OnInit {
     //@Output() borrarContacto = new EventEmitter<Contacto>();
     //@HostBinding('attr.class') addClass = "col s12 m6 l4 xl3";
 
-    constructor(private store: Store<AppState>) { }
+    constructor(private ClienteMockApiHTTPService: ClienteMockApiHTTPService, private store: Store<AppState>) { }
 
     ngOnInit(): void {}
+    
 
     sendBorrarContacto(): void {
-        //this.borrarContacto.emit(this.contacto)
-        this.store.dispatch(new EliminarContactoAction(this.contacto))
+
+        // Borramos el contacto del MockAPI
+        this.ClienteMockApiHTTPService.deleteMockApiContacto(this.contacto.id)
+            .subscribe(res => {
+                // Borramos el contacto de Redux
+                this.store.dispatch(new EliminarContactoAction(this.contacto))
+            });   
     }
 
     agregarFavoritoHandle() {

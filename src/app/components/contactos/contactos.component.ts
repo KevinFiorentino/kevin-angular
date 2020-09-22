@@ -42,8 +42,15 @@ export class ContactosComponent implements OnInit {
         let img = "https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-256.png";
 
         let contacto = new Contacto(this.formulario.nombre, this.formulario.profesion, img);
+
+        // Guardamos contacto en el back
+        this.ClienteMockApiHTTPService.getMockApiInsert(contacto)
+            .subscribe(res => {
+                // Guardamos contacto en redux
+                this.store.dispatch(new NuevoContactoAction(res));
+            });
         
-        this.store.dispatch(new NuevoContactoAction(contacto));
+        
 
         // Reiniciamos formulario de la view
         this.formulario = {
@@ -51,10 +58,6 @@ export class ContactosComponent implements OnInit {
             profesion: ''
         };
         formContacto.form.reset(); 
-    }
-
-    borrarContactoHandle(contacto: Contacto): void {
-        this.store.dispatch(new EliminarContactoAction(contacto));
     }
 
 }
