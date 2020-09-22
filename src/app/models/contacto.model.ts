@@ -5,12 +5,12 @@ export class Contacto {
     public id = uuid();
     public nombre: string;
     public profesion: string;
-    public genero: string;
+    public imagen: string;
 
-    constructor(nombre: string, profesion: string, genero: string, public votes: number = 0) {
+    constructor(nombre: string, profesion: string, imagen?: string, public votes: number = 0) {
         this.nombre = nombre;
         this.profesion = profesion;
-        this.genero = genero;
+        this.imagen = imagen;
     }
 
     public voteUp(): void {

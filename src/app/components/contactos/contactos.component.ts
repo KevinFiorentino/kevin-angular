@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms'
+
 import { Contacto } from 'src/app/models/contacto.model';
 
-import { NgForm } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import { AppState } from 'src/app/app.module';
 import { NuevoContactoAction, EliminarContactoAction } from '../../models/store-state.model';
 
+import { ClienteMockApiHTTPService } from "../../services/cliente-mock-api/cliente-mock-api-http.service"
 
 @Component({
     selector: 'app-contactos',
@@ -17,14 +19,13 @@ export class ContactosComponent implements OnInit {
     contactos: Contacto[];
     formulario = {
         nombre: '',
-        profesion: '',
-        genero: ''
+        profesion: ''
     };
 
     //El formulario está siendo validado en el HTML, no en este Controlador
     //Es del tipo Template Drive, no Reactive Form
 
-    constructor(private store: Store<AppState>) {
+    constructor(private ClienteMockApiHTTPService: ClienteMockApiHTTPService, private store: Store<AppState>) {
         this.contactos = new Array();
     }
 
@@ -38,25 +39,21 @@ export class ContactosComponent implements OnInit {
 
     agregarContactoHandle(formContacto: NgForm): void {
 
-        let contacto = new Contacto(this.formulario.nombre, this.formulario.profesion, this.formulario.genero);
+        let img = "https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-256.png";
+
+        let contacto = new Contacto(this.formulario.nombre, this.formulario.profesion, img);
         
         this.store.dispatch(new NuevoContactoAction(contacto));
-
-        // El suscribe se encarga de setear el array de contactos.
-        // this.contactos.push(contacto);
 
         // Reiniciamos formulario de la view
         this.formulario = {
             nombre: '',
-            profesion: '',
-            genero: ''
+            profesion: ''
         };
         formContacto.form.reset(); 
     }
 
     borrarContactoHandle(contacto: Contacto): void {
-        //this.contactos.splice(idContacto, 1);
-
         this.store.dispatch(new EliminarContactoAction(contacto));
     }
 

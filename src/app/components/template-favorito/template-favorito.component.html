@@ -6,9 +6,7 @@
         <mat-card-title>{{ contacto.nombre }}</mat-card-title>
         <mat-card-subtitle>{{ contacto.profesion }}</mat-card-subtitle>
     </mat-card-header>
-    <img *ngIf="contacto.genero == '1'" mat-card-image src="https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png" alt="Foto del contacto">
-    <img *ngIf="contacto.genero == '2'" mat-card-image src="https://www.iconfinder.com/data/icons/business-avatar-1/512/4_avatar-512.png" alt="Foto del contacto">
-    <img *ngIf="contacto.genero == '3'" mat-card-image src="https://cdn3.iconfinder.com/data/icons/fantasy-and-role-play-game-adventure-quest/512/Grim_Reaper-512.png" alt="Foto del contacto">
+    <img mat-card-image [src]="contacto.imagen" alt="Foto de {{ contacto.nombre }}">
     <mat-card-actions>
         <button mat-raised-button color="primary" (click)="sendBorrarFavorito()">Borrar favorito</button>
         <mat-icon class="icon-thumb" (click)="sendContactoVoteUp()" aria-hidden="false" aria-label="Thumb Up">thumb_up</mat-icon>

@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+
 import { environment } from 'src/environments/environment';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,13 +32,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatBadgeModule } from '@angular/material/badge';
 
+// Servicios
+import { ClienteMockApiHTTPService } from "./services/cliente-mock-api/cliente-mock-api-http.service"
+import { AppConfigService } from "./services/app-config/app-config.service"
 
 // REDUX
 import { StoreModule as NgRxStoreModule, ActionReducerMap } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreStateContacto, StoreStateFavorito, reducerContacto, reducerFavorito, initStoreStateContacto, initStoreStateFavorito, ContactoEffects } from './models/store-state.model';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
 
 
 export interface AppState {
@@ -55,6 +59,14 @@ const reducersInitialState = {
 };
 
 
+export function servicesOnRun(config: AppConfigService) {
+	return () => config.load()
+		.then(() => {
+			console.log("END SERVICES ON RUN")
+		});
+}
+
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -70,6 +82,7 @@ const reducersInitialState = {
 		FormsModule,
 		ReactiveFormsModule,
 		BrowserAnimationsModule,
+		HttpClientModule,
 		FlexLayoutModule,
 
 		// REDUX
@@ -98,7 +111,16 @@ const reducersInitialState = {
 		MatBadgeModule
 	],
 	exports: [ RouterModule ],
-	providers: [],
+	providers: [
+		ClienteMockApiHTTPService,
+		AppConfigService,
+		{
+			provide: APP_INITIALIZER,
+			useFactory: servicesOnRun,
+			multi: true,
+			deps: [ AppConfigService ]
+		},
+	],
 	bootstrap: [ AppComponent ]
 })
 export class AppModule { }
