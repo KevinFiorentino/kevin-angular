@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, mergeMap, catchError, mapTo } from 'rxjs/operators';
 import { Contacto } from './contacto.model';
 
+import { NgxIndexedDBService, DBConfig } from 'ngx-indexed-db';
+import { IndexedDbService } from '../services/indexed-db/indexed-db.service'
 
 // ESTADO
 export interface StoreStateContacto {
@@ -32,10 +34,12 @@ export enum StoreStatusTypes {
     ELIMINAR_CONTACTO = '[Contacto] Eliminar',
     VOTE_UP = '[Contacto] Vote Up',
     VOTE_DOWN = '[Contacto] Vote Down',
+
     ELEGIDO_FAVORITO = '[Favorito] Nuevo',
     ELIMINAR_FAVORITO = '[Favorito] Eliminar',
     NOTIFICAR_FAVORITOS = '[Favorito] Notificación',
     REINICIAR_NOTIFICAR_FAVORITOS = '[Favorito] Reiniciar Notificacion',
+    ADD_FAVORITO_INDEXEDDB = '[Favorito] Add IndexedDB'
 }
 
 
@@ -74,10 +78,15 @@ export class ReiniciarNotificacionFavoritoAction implements Action {
     type = StoreStatusTypes.REINICIAR_NOTIFICAR_FAVORITOS;
     constructor() {}
 }
+export class AddFavoritoIndexedDbAction implements Action {
+    type = StoreStatusTypes.ADD_FAVORITO_INDEXEDDB;
+    constructor(public contacto: Contacto) {}
+}
 
 export type ContactoActions = 
     NuevoContactoAction | EliminarContactoAction | VoteUpAction | VoteDownAction |
-    NuevoFavoritoAction | EliminarFavoritoAction | NotificarFavoritoAction | ReiniciarNotificacionFavoritoAction;
+    NuevoFavoritoAction | EliminarFavoritoAction | NotificarFavoritoAction | ReiniciarNotificacionFavoritoAction | 
+    AddFavoritoIndexedDbAction;
 
 
 // REDUCERS
@@ -135,6 +144,12 @@ export function reducerFavorito(state: StoreStateFavorito, action: ContactoActio
                 ]
             };
         }
+        case StoreStatusTypes.ADD_FAVORITO_INDEXEDDB: {
+
+            console.log("AÑADIR A INDEXEDDB")
+
+            return { ...state };
+        }
         case StoreStatusTypes.NOTIFICAR_FAVORITOS: {
             return {
                 ...state,
@@ -156,16 +171,26 @@ export function reducerFavorito(state: StoreStateFavorito, action: ContactoActio
 
 // EFFECTS
 @Injectable()
-export class ContactoEffects {
-    /*
+export class VoteUpEffects {
+
+    // VoteUp +1 cada vez que se agrega un contacto a Favorito
     @Effect()
-    nuevoAgregado$: Observable<Action> = this.actions$.pipe(
+    favoritoVoteUp$ = this.actions$.pipe(
         ofType(StoreStatusTypes.ELEGIDO_FAVORITO),
-        map((action: NuevoContactoAction) => new NuevoFavoritoAction(action.contacto))
+        map((action: VoteUpAction) => new VoteUpAction(action.contacto))
     );
 
-    constructor(private actions$: Actions) {
-        console.log("EFFECT");
-    }
-    */
+    constructor(public actions$: Actions) { }
+}
+
+@Injectable()
+export class AddFavoritoEffects {
+
+    @Effect()
+    nuevoFavorito$ = this.actions$.pipe(
+        ofType(StoreStatusTypes.ELEGIDO_FAVORITO),
+        map((action: AddFavoritoIndexedDbAction) => new AddFavoritoIndexedDbAction(action.contacto))
+    );
+
+    constructor(public actions$: Actions) { }
 }

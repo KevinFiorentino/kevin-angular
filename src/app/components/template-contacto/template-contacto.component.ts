@@ -7,6 +7,7 @@ import { NuevoFavoritoAction, EliminarContactoAction, NotificarFavoritoAction, V
 
 import { ClienteMockApiHTTPService } from "../../services/cliente-mock-api/cliente-mock-api-http.service"
 
+
 @Component({
     selector: 'app-template-contacto',
     templateUrl: './template-contacto.component.html',
@@ -21,7 +22,7 @@ export class TemplateContactoComponent implements OnInit {
 
     constructor(private ClienteMockApiHTTPService: ClienteMockApiHTTPService, private store: Store<AppState>) { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
     
 
     sendBorrarContacto(): void {
@@ -37,6 +38,7 @@ export class TemplateContactoComponent implements OnInit {
     agregarFavoritoHandle() {
         this.store.dispatch(new NuevoFavoritoAction(this.contacto));
         this.store.dispatch(new NotificarFavoritoAction());
+
         return false;
     }
 

@@ -4,6 +4,7 @@ import { Contacto } from 'src/app/models/contacto.model';
 import { Store } from '@ngrx/store'
 import { AppState } from 'src/app/app.module';
 
+
 @Component({
     selector: 'app-favoritos',
     templateUrl: './favoritos.component.html',
