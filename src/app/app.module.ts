@@ -15,6 +15,7 @@ import { ContactosComponent } from './components/contactos/contactos.component';
 import { TemplateContactoComponent } from './components/template-contacto/template-contacto.component';
 import { FavoritosComponent } from './components/favoritos/favoritos.component';
 import { TemplateFavoritoComponent } from './components/template-favorito/template-favorito.component';
+import { LoginComponent } from './components/login/login.component';
 
 // Servicios
 import { ClienteMockApiHTTPService } from "./services/cliente-mock-api/cliente-mock-api-http.service";
@@ -42,7 +43,8 @@ import { NgxIndexedDBModule } from 'ngx-indexed-db';
 // REDUX
 import { StoreModule as NgRxStoreModule, ActionReducerMap } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreStateContacto, StoreStateFavorito, reducerContacto, reducerFavorito, initStoreStateContacto, initStoreStateFavorito, VoteUpEffects, AddFavoritoEffects } from './models/store-state.model';
+import { StoreStateContacto, StoreStateFavorito, 
+	reducerContacto, reducerFavorito, initStoreStateContacto, initStoreStateFavorito, VoteUpEffects } from './models/store-state.model';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 export interface AppState {
@@ -59,6 +61,7 @@ const reducersInitialState = {
 	contactos: initStoreStateContacto(),
 	favoritos: initStoreStateFavorito()
 };
+
 
 // Función que se ejecuta antes que arranque el proyecto Angular
 export function servicesOnRun(config: AppConfigService) {
@@ -82,7 +85,8 @@ const APP_CONFIG_VALUE_URL: IAppConfigUrl = {
 		TemplateContactoComponent,
 		NavbarComponent,
 		FavoritosComponent,
-		TemplateFavoritoComponent
+		TemplateFavoritoComponent,
+		LoginComponent
 	],
 	imports: [
 		BrowserModule,
@@ -102,7 +106,7 @@ const APP_CONFIG_VALUE_URL: IAppConfigUrl = {
 				strictActionImmutability: false
 			}
 		}),
-		EffectsModule.forRoot([ VoteUpEffects, AddFavoritoEffects ]),
+		EffectsModule.forRoot([ VoteUpEffects ]),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production

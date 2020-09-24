@@ -8,12 +8,13 @@
 
 #### Dependencias utilizadas:
 
-- Angular 10
+- Front-end: Angular 10
 - Back-end: https://mockapi.io/
 - Angular Material
 - Flex Layout - Angular
 - RxJS
-- NgRx - Redux for Angular
+- NgRx
+- Ngx-IndexedDB
 
 ---
 ##### Proyecto realizado en el marco del Curso de Angular

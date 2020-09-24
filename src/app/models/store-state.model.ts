@@ -37,7 +37,6 @@ export enum StoreStatusTypes {
     ELIMINAR_FAVORITO = '[Favorito] Eliminar',
     NOTIFICAR_FAVORITOS = '[Favorito] Notificación',
     REINICIAR_NOTIFICAR_FAVORITOS = '[Favorito] Reiniciar Notificacion',
-    ADD_FAVORITO_INDEXEDDB = '[Favorito] Add IndexedDB'
 }
 
 
@@ -76,15 +75,10 @@ export class ReiniciarNotificacionFavoritoAction implements Action {
     type = StoreStatusTypes.REINICIAR_NOTIFICAR_FAVORITOS;
     constructor() {}
 }
-export class AddFavoritoIndexedDbAction implements Action {
-    type = StoreStatusTypes.ADD_FAVORITO_INDEXEDDB;
-    constructor(public contacto: Contacto) {}
-}
 
 export type ContactoActions = 
     NuevoContactoAction | EliminarContactoAction | VoteUpAction | VoteDownAction |
-    NuevoFavoritoAction | EliminarFavoritoAction | NotificarFavoritoAction | ReiniciarNotificacionFavoritoAction | 
-    AddFavoritoIndexedDbAction;
+    NuevoFavoritoAction | EliminarFavoritoAction | NotificarFavoritoAction | ReiniciarNotificacionFavoritoAction;
 
 
 // REDUCERS
@@ -142,12 +136,6 @@ export function reducerFavorito(state: StoreStateFavorito, action: ContactoActio
                 ]
             };
         }
-        case StoreStatusTypes.ADD_FAVORITO_INDEXEDDB: {
-
-            console.log("AÑADIR A INDEXEDDB")
-
-            return { ...state };
-        }
         case StoreStatusTypes.NOTIFICAR_FAVORITOS: {
             return {
                 ...state,
@@ -176,18 +164,6 @@ export class VoteUpEffects {
     favoritoVoteUp$ = this.actions$.pipe(
         ofType(StoreStatusTypes.ELEGIDO_FAVORITO),
         map((action: VoteUpAction) => new VoteUpAction(action.contacto))
-    );
-
-    constructor(public actions$: Actions) { }
-}
-
-@Injectable()
-export class AddFavoritoEffects {
-
-    @Effect()
-    nuevoFavorito$ = this.actions$.pipe(
-        ofType(StoreStatusTypes.ELEGIDO_FAVORITO),
-        map((action: AddFavoritoIndexedDbAction) => new AddFavoritoIndexedDbAction(action.contacto))
     );
 
     constructor(public actions$: Actions) { }

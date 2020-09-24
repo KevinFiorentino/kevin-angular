@@ -3,12 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ContactosComponent } from './components/contactos/contactos.component';
 import { FavoritosComponent } from './components/favoritos/favoritos.component';
+import { LoginComponent } from './components/login/login.component'
 
+import { GuardAuthGuard } from './guards/guard-auth/guard-auth.guard'
 
 const routes: Routes = [
-	{ path: '', redirectTo: '/contactos', pathMatch: 'full' },
-	{ path: 'contactos', component: ContactosComponent },
-	{ path: 'favoritos', component: FavoritosComponent },
+	{ path: '', redirectTo: '/login', pathMatch: 'full' },
+	{ path: 'login', component: LoginComponent },
+	{ path: 'contactos', component: ContactosComponent, canActivate: [ GuardAuthGuard ] },
+	{ path: 'favoritos', component: FavoritosComponent, canActivate: [ GuardAuthGuard ] },
 ];
 
 @NgModule({
