@@ -2,11 +2,9 @@ import { Inject, Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { map, mergeMap, catchError, mapTo } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Contacto } from './contacto.model';
 
-import { NgxIndexedDBService, DBConfig } from 'ngx-indexed-db';
-import { IndexedDbService } from '../services/indexed-db/indexed-db.service'
 
 // ESTADO
 export interface StoreStateContacto {

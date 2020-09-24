@@ -6,6 +6,7 @@ import { AppState } from 'src/app/app.module';
 import { NuevoFavoritoAction, EliminarContactoAction, NotificarFavoritoAction, VoteUpAction, VoteDownAction } from '../../models/store-state.model';
 
 import { ClienteMockApiHTTPService } from "../../services/cliente-mock-api/cliente-mock-api-http.service"
+import { ClienteIndexedDbService } from "../../services/cliente-indexed-db/cliente-indexed-db.service"
 
 
 @Component({
@@ -20,7 +21,7 @@ export class TemplateContactoComponent implements OnInit {
     //@Output() borrarContacto = new EventEmitter<Contacto>();
     //@HostBinding('attr.class') addClass = "col s12 m6 l4 xl3";
 
-    constructor(private ClienteMockApiHTTPService: ClienteMockApiHTTPService, private store: Store<AppState>) { }
+    constructor(private clienteIndexedDbService: ClienteIndexedDbService, private ClienteMockApiHTTPService: ClienteMockApiHTTPService, private store: Store<AppState>) { }
 
     ngOnInit(): void { }
     
@@ -36,8 +37,11 @@ export class TemplateContactoComponent implements OnInit {
     }
 
     agregarFavoritoHandle() {
+        // Actualizamos Redux e IndexedDB con el contacto agregado a favoritos
         this.store.dispatch(new NuevoFavoritoAction(this.contacto));
         this.store.dispatch(new NotificarFavoritoAction());
+
+        this.clienteIndexedDbService.addFavoritoIndexedDB(this.contacto);
 
         return false;
     }

@@ -5,6 +5,9 @@ import { Store } from '@ngrx/store'
 import { AppState } from 'src/app/app.module';
 import { EliminarFavoritoAction, VoteUpAction, VoteDownAction } from '../../models/store-state.model';
 
+import { ClienteIndexedDbService } from "../../services/cliente-indexed-db/cliente-indexed-db.service"
+
+
 @Component({
 	selector: 'app-template-favorito',
 	templateUrl: './template-favorito.component.html',
@@ -16,12 +19,15 @@ export class TemplateFavoritoComponent implements OnInit {
     @Input() contacto: Contacto;
     //@Output() borrarContacto = new EventEmitter<Contacto>();
 
-	constructor(private store: Store<AppState>) { }
+	constructor(private clienteIndexedDbService: ClienteIndexedDbService, private store: Store<AppState>) { }
 
 	ngOnInit(): void {}
 
 	sendBorrarFavorito(): void {
-		this.store.dispatch(new EliminarFavoritoAction(this.contacto))
+		// Borramos el favorito de Redux y de IndexedDB
+		this.store.dispatch(new EliminarFavoritoAction(this.contacto));
+
+		this.clienteIndexedDbService.removeFavoritoIndexedDB(this.contacto);
 	}
 
 	sendContactoVoteUp() {

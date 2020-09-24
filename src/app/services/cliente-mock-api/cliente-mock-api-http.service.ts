@@ -1,25 +1,25 @@
-import { Injectable } from '@angular/core';
+import { forwardRef, Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Contacto } from 'src/app/models/contacto.model';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+import { APP_CONFIG } from "../../services/app-config/app-config.service";
+
+
 @Injectable({
 	providedIn: 'root'
 })
 export class ClienteMockApiHTTPService {
 
-	url: string;
 
-	constructor(private httpClient: HttpClient) { 
-		this.url = "https://5f691b59dc0bff0016f44324.mockapi.io/api/mockangular/Contacto";
-	}
+	constructor(@Inject(forwardRef(() => APP_CONFIG)) public configUrl , private httpClient: HttpClient) { }
 
 
 	// Traer todos los contactos
 	public getMockApiAll(): Observable<any> {
-		return this.httpClient.get(this.url)
+		return this.httpClient.get(this.configUrl.url_mock_api)
 			.pipe(
 				catchError(this.handleError)
 		  	);
@@ -27,7 +27,7 @@ export class ClienteMockApiHTTPService {
 
 	// Nuevo contacto
 	public getMockApiInsert(contacto: Contacto): Observable<any> {
-		return this.httpClient.post(this.url, contacto, this.getHttpOption())
+		return this.httpClient.post(this.configUrl.url_mock_api, contacto, this.getHttpOption())
 			.pipe(
 				catchError(this.handleError)
 			);
@@ -36,7 +36,7 @@ export class ClienteMockApiHTTPService {
 	// Borrar contacto
 	public deleteMockApiContacto(id: number): Observable<any> {
 
-		return this.httpClient.delete(this.url+"/"+id)
+		return this.httpClient.delete(this.configUrl.url_mock_api+id)
 			.pipe(
 				catchError(this.handleError)
 			);

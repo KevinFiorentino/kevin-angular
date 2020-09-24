@@ -1,25 +1,32 @@
-import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store'
+import { Injectable, InjectionToken } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.module';
-import { NuevoContactoAction, NuevoFavoritoAction } from "../../models/store-state.model"
-import { ClienteMockApiHTTPService } from "../cliente-mock-api/cliente-mock-api-http.service"
-import { Contacto } from "../../models/contacto.model"
-import { Observable } from 'rxjs';
+import { NuevoContactoAction, NuevoFavoritoAction } from "../../models/store-state.model";
+import { ClienteMockApiHTTPService } from "../cliente-mock-api/cliente-mock-api-http.service";
+import { ClienteIndexedDbService } from "../cliente-indexed-db/cliente-indexed-db.service"
+import { Contacto } from "../../models/contacto.model";
 
-import { NgxIndexedDBService } from 'ngx-indexed-db';
 
+// Creamos InjectionToken para pasar la URL de la API del BAck
+export interface IAppConfigUrl {
+	url_mock_api: string;
+}
+export const APP_CONFIG = new InjectionToken<IAppConfigUrl>('app.config.url.back');
+
+
+// Creamos servicio para inicializar REDUX con los datos de contacto y favoritos
 @Injectable({
 	providedIn: 'root'
 })
 export class AppConfigService {
 
-	constructor(private dbService: NgxIndexedDBService, private ClienteMockApiHTTPService: ClienteMockApiHTTPService, private store: Store<AppState>) { }
+	constructor(private clienteIndexedDbService: ClienteIndexedDbService, private clienteMockApiHTTPService: ClienteMockApiHTTPService, private store: Store<AppState>) { }
 
-	load() {
+	loadRedux() {
 		return new Promise((resolve, reject) => {
 
 			// Cargamos los contacto en Redux desde MockAPI
-			this.ClienteMockApiHTTPService.getMockApiAll()
+			this.clienteMockApiHTTPService.getMockApiAll()
 				.subscribe(response => {
 					response.map(res => {
 						this.store.dispatch(new NuevoContactoAction(new Contacto(res.nombre, res.profesion, res.imagen, res.id)))
@@ -27,7 +34,7 @@ export class AppConfigService {
 				});
 
 			// Cargamos los favoritos en Redux desde IndexedDB
-			this.dbService.getAll('favoritos')
+			this.clienteIndexedDbService.getFavoritosIndexedDB()
 				.subscribe((favoritos) => {
 					favoritos.map(data => {
 						this.store.dispatch(new NuevoFavoritoAction(new Contacto(data.nombre, data.profesion, data.imagen, data.id)))
