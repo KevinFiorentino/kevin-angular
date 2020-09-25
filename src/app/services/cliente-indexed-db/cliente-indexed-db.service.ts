@@ -11,10 +11,12 @@ export const CONFIG_INDEXED_DB: DBConfig = {
 	  	store: 'favoritos',
 	  	storeConfig: { keyPath: 'id', autoIncrement: false },
 	  	storeSchema: [
-			{ name: 'id', keypath: 'id', options: { unique: true } },
+			{ name: 'id', keypath: 'id', options: { unique: false } },
 			{ name: 'nombre', keypath: 'nombre', options: { unique: false } },
 			{ name: 'imagen', keypath: 'imagen', options: { unique: false } },
-			{ name: 'profesion', keypath: 'profesion', options: { unique: false } }
+			{ name: 'profesion', keypath: 'profesion', options: { unique: false } },
+			{ name: 'latitud', keypath: 'latitud', options: { unique: false } },
+			{ name: 'longitud', keypath: 'longitud', options: { unique: false } }
 	  	]
 	}]
 };
@@ -38,6 +40,8 @@ export class ClienteIndexedDbService {
 			{
 				id: contacto.id,
 				nombre: contacto.nombre,
+				latitud: contacto.latitud,
+				longitud: contacto.longitud,
 				imagen: contacto.imagen,
 				profesion: contacto.profesion
 			})

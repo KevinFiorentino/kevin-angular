@@ -29,7 +29,7 @@ export class AppConfigService {
 			this.clienteMockApiHTTPService.getMockApiAll()
 				.subscribe(response => {
 					response.map(res => {
-						this.store.dispatch(new NuevoContactoAction(new Contacto(res.nombre, res.profesion, res.imagen, res.id)))
+						this.store.dispatch(new NuevoContactoAction(new Contacto(res.nombre, res.profesion, res.latitud, res.longitud, res.imagen, res.id)))
 					})
 				});
 
@@ -37,7 +37,7 @@ export class AppConfigService {
 			this.clienteIndexedDbService.getFavoritosIndexedDB()
 				.subscribe((favoritos) => {
 					favoritos.map(data => {
-						this.store.dispatch(new NuevoFavoritoAction(new Contacto(data.nombre, data.profesion, data.imagen, data.id)))
+						this.store.dispatch(new NuevoFavoritoAction(new Contacto(data.nombre, data.profesion, data.latitud, data.longitud, data.imagen, data.id)))
 					})
 				});
 			 
