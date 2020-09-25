@@ -40,8 +40,8 @@ export class ContactosComponent implements OnInit {
     agregarContactoHandle(formContacto: NgForm): void {
 
         let img = "https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-256.png";
-        let lat = "-34.6083";
-        let long = "-58.3712";
+        let lat = -34.6083;
+        let long = -58.3712;
 
         let contacto = new Contacto(this.formulario.nombre, this.formulario.profesion, lat, long, img);
 

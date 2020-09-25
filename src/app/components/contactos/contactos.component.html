@@ -42,26 +42,6 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <!--
-                    <mat-form-field appearance="fill">
-                        <mat-label>Genero</mat-label>
-                        <mat-select id="genero" 
-                                    name="genero" 
-                                    [(ngModel)]="formulario.genero" 
-                                    #genero="ngModel" 
-                                    required
-                                    >
-                            <mat-option value="" selected>Seleccione</mat-option>
-                            <mat-option value="1">Hombre</mat-option>
-                            <mat-option value="2">Mujer</mat-option>
-                            <mat-option value="3">Otro</mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="profesion.invalid && profesion.dirty">
-                            <mat-hint *ngIf="genero.hasError('required')">Campo requerido</mat-hint>
-                        </mat-error>
-                    </mat-form-field>
-                    -->
-            
                     <button mat-raised-button color="primary" [disabled]="formContacto.invalid">Agregar contacto</button>
             
                 </form>
@@ -83,8 +63,6 @@
                 [index]="i"
                 
             ></app-template-contacto>
-
-            <!-- (borrarContacto)="borrarContactoHandle($event)" -->
 
         </div>
 

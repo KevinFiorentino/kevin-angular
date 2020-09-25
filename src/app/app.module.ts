@@ -78,6 +78,11 @@ const APP_CONFIG_VALUE_URL: IAppConfigUrl = {
 }
 
 
+// Google Maps
+import { AgmCoreModule } from '@agm/core';
+import { GoogleMapsComponent } from './components/google-maps/google-maps.component';
+
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -86,7 +91,8 @@ const APP_CONFIG_VALUE_URL: IAppConfigUrl = {
 		NavbarComponent,
 		FavoritosComponent,
 		TemplateFavoritoComponent,
-		LoginComponent
+		LoginComponent,
+		GoogleMapsComponent
 	],
 	imports: [
 		BrowserModule,
@@ -121,7 +127,12 @@ const APP_CONFIG_VALUE_URL: IAppConfigUrl = {
 		MatCardModule,
 		MatToolbarModule,
 		MatDialogModule,
-		MatBadgeModule
+		MatBadgeModule,
+
+		// Google Maps
+		AgmCoreModule.forRoot({
+			apiKey: ''
+		})
 	],
 	exports: [ RouterModule ],
 	providers: [

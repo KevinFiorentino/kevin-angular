@@ -1,0 +1,25 @@
+<div fxFlex="auto" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
+
+    <div fxFlex.gt-md="40" fxFlex.gt-sm="90" fxFlex.gt-xs="90" fxLayoutAlign="center center">
+        <mat-card fxFlex.gt-md="50" fxFlex.gt-sm="80" fxFlex.gt-xs="80">
+            <mat-card-header>
+                <div mat-card-avatar>
+                    <mat-icon aria-hidden="false" aria-label="Icon people">perm_identity</mat-icon>
+                </div>
+                <mat-card-title>{{ contacto.nombre }}</mat-card-title>
+                <mat-card-subtitle>{{ contacto.profesion }}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image [src]="contacto.imagen" alt="Foto de {{ contacto.nombre }}">
+            <mat-card-actions>
+                <a routerLink="/contactos" mat-raised-button color="warn">Volver a contactos</a>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <div fxFlex.gt-md="50" fxFlex.gt-sm="90" fxFlex.gt-xs="90">
+        <agm-map fxFlex.gt-md="90" fxFlex.gt-sm="90" fxFlex.gt-xs="90" [latitude]="lat" [longitude]="long">
+            <!--<agm-marker [latitude]="contacto.latitud" [longitude]="contacto.longitud"></agm-marker>-->
+        </agm-map>
+    </div>
+
+</div>
