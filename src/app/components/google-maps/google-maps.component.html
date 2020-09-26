@@ -10,11 +10,11 @@
                 <mat-card-subtitle>{{ (contacto | async)?.profesion }}</mat-card-subtitle>
             </mat-card-header>
             <img mat-card-image [src]="(contacto | async)?.imagen" alt="Foto de {{ (contacto | async)?.nombre }}">
+            <p><strong>Latitud: </strong>{{ (contacto | async)?.latitud }}</p>
+            <p><strong>Longitud: </strong>{{ (contacto | async)?.longitud }}</p>
             <mat-card-actions>
                 <a routerLink="/contactos" mat-raised-button color="warn">Volver a contactos</a>
             </mat-card-actions>
-            <p><strong>Latitud: </strong>{{ (contacto | async)?.latitud }}</p>
-            <p><strong>Longitud: </strong>{{ (contacto | async)?.longitud }}</p>
         </mat-card>
     </div>
 

@@ -7,13 +7,12 @@
         <mat-card-subtitle>{{ contacto.profesion }}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image [src]="contacto.imagen" alt="Foto de {{ contacto.nombre }}">
-    <mat-icon class="icon_thumbs" aria-hidden="false" aria-label="Icon thumbs">thumbs_up_down</mat-icon>
-    <span>{{ contacto.votes }}</span>
     <mat-card-actions fxLayoutAlign="space-between">
         <button mat-raised-button color="primary" (click)="sendBorrarContacto()">Borrar</button>
         <button mat-raised-button color="warn" (click)="agregarFavoritoHandle()">
             <mat-icon class="icon_thumbs" aria-hidden="false" aria-label="Icon thumbs">grade</mat-icon>
         </button>
-        <a routerLink="/contacto/{{ contacto.id }}" mat-raised-button color="accent">Ver</a>
+        <a routerLink="/contacto/{{ contacto.id }}" mat-raised-button color="accent">Ver más</a>
+        <span><mat-icon class="icon_thumbs" aria-hidden="false" aria-label="Icon thumbs">thumbs_up_down</mat-icon>{{ contacto.votes }}</span>
     </mat-card-actions>
 </mat-card>

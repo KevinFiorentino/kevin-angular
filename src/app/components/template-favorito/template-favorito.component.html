@@ -9,8 +9,13 @@
     <img mat-card-image [src]="contacto.imagen" alt="Foto de {{ contacto.nombre }}">
     <mat-card-actions>
         <button mat-raised-button color="primary" (click)="sendBorrarFavorito()">Borrar favorito</button>
-        <mat-icon class="icon-thumb" (click)="sendContactoVoteUp()" aria-hidden="false" aria-label="Thumb Up">thumb_up</mat-icon>
-        <span>Votos: {{ contacto.votes }}</span>
-        <mat-icon class="icon-thumb" (click)="sendContactoVoteDown()" aria-hidden="false" aria-label="Thumb Down">thumb_down</mat-icon>
+        <a routerLink="/contacto/{{ contacto.id }}" mat-raised-button color="accent">Ver más</a>
+
+        <span>
+            <mat-icon class="icon-thumb" (click)="sendContactoVoteUp()" aria-hidden="false" aria-label="Thumb Up">thumb_up</mat-icon>
+            Votos: {{ contacto.votes }}
+            <mat-icon class="icon-thumb" (click)="sendContactoVoteDown()" aria-hidden="false" aria-label="Thumb Down">thumb_down</mat-icon>
+        </span>
+        
     </mat-card-actions>
 </mat-card>
