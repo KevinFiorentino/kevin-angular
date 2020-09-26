@@ -25,11 +25,13 @@ export class AppConfigService {
 	loadRedux() {
 		return new Promise((resolve, reject) => {
 
+			// MockAPI devuelve un string en latitud y longitud, por lo tanto se le agrega un + adelante para convertirlo en number
+
 			// Cargamos los contacto en Redux desde MockAPI
 			this.clienteMockApiHTTPService.getMockApiAll()
 				.subscribe(response => {
 					response.map(res => {
-						this.store.dispatch(new NuevoContactoAction(new Contacto(res.nombre, res.profesion, res.latitud, res.longitud, res.imagen, res.id)))
+						this.store.dispatch(new NuevoContactoAction(new Contacto(res.nombre, res.profesion, +res.latitud, +res.longitud, res.imagen, res.id)))
 					})
 				});
 
@@ -37,7 +39,7 @@ export class AppConfigService {
 			this.clienteIndexedDbService.getFavoritosIndexedDB()
 				.subscribe((favoritos) => {
 					favoritos.map(data => {
-						this.store.dispatch(new NuevoFavoritoAction(new Contacto(data.nombre, data.profesion, data.latitud, data.longitud, data.imagen, data.id)))
+						this.store.dispatch(new NuevoFavoritoAction(new Contacto(data.nombre, data.profesion, +data.latitud, +data.longitud, data.imagen, data.id)))
 					})
 				});
 			 
