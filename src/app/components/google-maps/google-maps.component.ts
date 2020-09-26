@@ -20,8 +20,6 @@ export class GoogleMapsComponent implements OnInit {
 	public contacto: Observable<Contacto>;
 	public idx: number;
 
-//return data.contactos.filter(contacto => contacto.id == params.id);
-
 	constructor(private activatedRoute: ActivatedRoute, private store: Store<AppState>) { 
 
 		this.activatedRoute.params.subscribe(params => {
@@ -42,8 +40,6 @@ export class GoogleMapsComponent implements OnInit {
 
 	}
 
-	ngOnInit(): void { 
-		
-	}
+	ngOnInit(): void { }
 
 }
