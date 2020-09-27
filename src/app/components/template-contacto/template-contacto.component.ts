@@ -1,19 +1,21 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Contacto } from 'src/app/models/contacto.model';
 
 import { Store } from '@ngrx/store'
 import { AppState } from 'src/app/app.module';
 import { NuevoFavoritoAction, EliminarContactoAction, NotificarFavoritoAction, VoteUpAction, VoteDownAction } from '../../models/store-state.model';
 
-import { ClienteMockApiHTTPService } from "../../services/cliente-mock-api/cliente-mock-api-http.service"
-import { ClienteIndexedDbService } from "../../services/cliente-indexed-db/cliente-indexed-db.service"
-import { Observable, of } from 'rxjs';
+import { ClienteMockApiHTTPService } from "../../services/cliente-mock-api/cliente-mock-api-http.service";
+import { ClienteIndexedDbService } from "../../services/cliente-indexed-db/cliente-indexed-db.service";
+
+import { ANIMATED } from 'src/app/services/app-config/app-config.service';
 
 
 @Component({
     selector: 'app-template-contacto',
     templateUrl: './template-contacto.component.html',
-    styleUrls: ['./template-contacto.component.scss']
+    styleUrls: ['./template-contacto.component.scss'],
+    animations: ANIMATED
 })
 export class TemplateContactoComponent implements OnInit {
 

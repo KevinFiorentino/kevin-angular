@@ -15,6 +15,8 @@
 - RxJS
 - NgRx
 - Ngx-IndexedDB
+- Angular Google Maps
+
 
 ---
 ##### Proyecto realizado en el marco del Curso de Angular

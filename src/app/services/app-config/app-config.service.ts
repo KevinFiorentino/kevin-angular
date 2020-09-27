@@ -6,6 +6,27 @@ import { ClienteMockApiHTTPService } from "../cliente-mock-api/cliente-mock-api-
 import { ClienteIndexedDbService } from "../cliente-indexed-db/cliente-indexed-db.service"
 import { Contacto } from "../../models/contacto.model";
 
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
+
+// Animación para el botón de favoritos
+export const ANIMATED = [
+	trigger("disabledButton", [
+		state("estateEnable", style({
+			backgroundColor: "#f44336"
+		})),
+		state("estateDisabled", style({
+			backgroundColor: "grey"
+		})),
+		transition("estateEnable-> estateDisabled", [
+			animate("1s")
+		]),
+		transition("estateDisabled -> estateEnable", [
+			animate("1s")
+		])
+	]),
+]
+
 
 // Creamos InjectionToken para pasar la URL de la API del BAck
 export interface IAppConfigUrl {
