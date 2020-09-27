@@ -7,6 +7,7 @@ import { NuevoFavoritoAction, EliminarContactoAction, NotificarFavoritoAction, V
 
 import { ClienteMockApiHTTPService } from "../../services/cliente-mock-api/cliente-mock-api-http.service"
 import { ClienteIndexedDbService } from "../../services/cliente-indexed-db/cliente-indexed-db.service"
+import { Observable, of } from 'rxjs';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class TemplateContactoComponent implements OnInit {
 
     @Input() index: string;
     @Input() contacto: Contacto;
+
     //@Output() borrarContacto = new EventEmitter<Contacto>();
     //@HostBinding('attr.class') addClass = "col s12 m6 l4 xl3";
 

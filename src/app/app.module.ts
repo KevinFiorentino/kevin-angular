@@ -22,6 +22,10 @@ import { ClienteMockApiHTTPService } from "./services/cliente-mock-api/cliente-m
 import { AppConfigService, IAppConfigUrl, APP_CONFIG } from "./services/app-config/app-config.service";
 import { ClienteIndexedDbService, CONFIG_INDEXED_DB } from "./services/cliente-indexed-db/cliente-indexed-db.service";
 
+// Directivas
+import { FavoritoDisabledDirective } from './directives/favorito-disabled/favorito-disabled.directive';
+
+
 // Angular Flex Layout
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -92,7 +96,8 @@ import { GoogleMapsComponent } from './components/google-maps/google-maps.compon
 		FavoritosComponent,
 		TemplateFavoritoComponent,
 		LoginComponent,
-		GoogleMapsComponent
+		GoogleMapsComponent,
+		FavoritoDisabledDirective
 	],
 	imports: [
 		BrowserModule,

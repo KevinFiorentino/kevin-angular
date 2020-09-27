@@ -9,7 +9,7 @@
     <img mat-card-image [src]="contacto.imagen" alt="Foto de {{ contacto.nombre }}">
     <mat-card-actions fxLayoutAlign="space-between">
         <button mat-raised-button color="primary" (click)="sendBorrarContacto()">Borrar</button>
-        <button mat-raised-button color="warn" (click)="agregarFavoritoHandle()">
+        <button mat-raised-button appFavoritoDisabled [statusFavorito]="contacto.isFavorite" color="warn" (click)="agregarFavoritoHandle()">
             <mat-icon class="icon_thumbs" aria-hidden="false" aria-label="Icon thumbs">grade</mat-icon>
         </button>
         <a routerLink="/contacto/{{ contacto.id }}" mat-raised-button color="accent">Ver más</a>

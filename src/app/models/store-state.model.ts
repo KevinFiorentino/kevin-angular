@@ -120,6 +120,8 @@ export function reducerContacto(state: StoreStateContacto, action: ContactoActio
 export function reducerFavorito(state: StoreStateFavorito, action: ContactoActions): StoreStateFavorito {
     switch(action.type) {
         case StoreStatusTypes.ELEGIDO_FAVORITO: {
+            let contacto: Contacto = (action as NuevoFavoritoAction).contacto;
+            contacto.setIsFavoritoTrue();
             return {
                 ...state,
                 favoritos: [ 
@@ -129,6 +131,8 @@ export function reducerFavorito(state: StoreStateFavorito, action: ContactoActio
             }
         }
         case StoreStatusTypes.ELIMINAR_FAVORITO: {
+            let contacto: Contacto = (action as EliminarFavoritoAction).contacto;
+            contacto.setIsFavoritoFalse();
             return {
                 ...state,
                 favoritos: [ 
