@@ -25,7 +25,9 @@ export class TemplateContactoComponent implements OnInit {
     //@Output() borrarContacto = new EventEmitter<Contacto>();
     //@HostBinding('attr.class') addClass = "col s12 m6 l4 xl3";
 
-    constructor(private clienteIndexedDbService: ClienteIndexedDbService, private ClienteMockApiHTTPService: ClienteMockApiHTTPService, private store: Store<AppState>) { }
+    constructor(private clienteIndexedDbService: ClienteIndexedDbService, 
+                private ClienteMockApiHTTPService: ClienteMockApiHTTPService, 
+                private store: Store<AppState>) { }
 
     ngOnInit(): void { }
     
