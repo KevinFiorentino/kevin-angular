@@ -3,7 +3,7 @@
         <div mat-card-avatar>
             <mat-icon aria-hidden="false" aria-label="Icon people">perm_identity</mat-icon>
         </div>
-        <mat-card-title>{{ contacto.nombre }}</mat-card-title>
+        <mat-card-title class="nombre-contacto">{{ contacto.nombre }}</mat-card-title>
         <mat-card-subtitle>{{ contacto.profesion }}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image [src]="contacto.imagen" alt="Foto de {{ contacto.nombre }}">

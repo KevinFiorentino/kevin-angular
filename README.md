@@ -6,7 +6,7 @@
 - `ng serve`
 - localhost://4200
 
-#### Dependencias utilizadas:
+#### Dependencias utilizadas
 
 - Front-end: Angular 10
 - Back-end: https://mockapi.io/
@@ -16,7 +16,14 @@
 - NgRx
 - Ngx-IndexedDB
 - Angular Google Maps
+- Jasmine JS
+- Protractor
+- Circle CI
 
+##### Ejecutar pruebas
+
+- Pruebas unitarias: `ng test`
+- Pruebas e2e: `ng e2e`
 
 ---
 ##### Proyecto realizado en el marco del Curso de Angular
