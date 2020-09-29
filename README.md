@@ -10,6 +10,7 @@
 
 - Front-end: Angular 10
 - Back-end: https://mockapi.io/
+- Express
 - Angular Material
 - Flex Layout - Angular
 - RxJS
@@ -19,6 +20,8 @@
 - Jasmine JS
 - Protractor
 - Circle CI
+
+- Hosting by Heroku: https://kevin-angular.herokuapp.com/
 
 ##### Ejecutar pruebas
 
