@@ -4,7 +4,7 @@
 
 - `npm install`
 - `ng serve`
-- localhost://4200
+- localhost:4200/
 
 #### Dependencias utilizadas
 
