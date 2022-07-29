@@ -21,8 +21,6 @@
 - Protractor
 - Circle CI
 
-- Hosting by Heroku: https://kevin-angular.herokuapp.com/
-
 ##### Ejecutar pruebas
 
 - Pruebas unitarias: `ng test`
